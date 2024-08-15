@@ -2,11 +2,21 @@ import requests
 import json
 from bs4 import BeautifulSoup
 
-# Paso 1: Cargar las URLs desde el archivo JSON
+def search_description(url):
+    response = requests.get(url)
+    if response.status_code == 200:
+        html_content = response.text
+        soup = BeautifulSoup(html_content, 'html.parser')
+        div = soup.find('div', class_='inner')
+        if div:
+            description = div.find('p')
+        if description:
+            return description.get_text(strip=True)
+    return None
+
 with open('resultados.json', 'r', encoding='utf-8') as json_file:
     links_json = json.load(json_file)
 
-# Paso 2: Procesar las páginas HTML descargadas directamente desde la respuesta HTTP
 categories = {}
 
 for item in links_json:
@@ -36,14 +46,14 @@ for item in links_json:
                     img_tag = link_tag.find('img')
                     if img_tag:
                         img_url = img_tag['src']
-                        
-                        if 'image' in img_url:
-                            link = 'https://pluto.tv' + link_tag.get('href')
-                            movies.append({
-                                'title': title,
-                                'link': link
-                                #'image': img_url  # Puedes descomentar esta línea si necesitas la imagen
-                            })
+                        link = 'https://pluto.tv' + link_tag.get('href') + '/details?lang=en'
+                        description = search_description(link)
+                        movies.append({
+                            'title': title,
+                            'link': link,
+                            'description': description
+                            #'image': img_url  # Puedes descomentar esta línea si necesitas la imagen
+                        })
 
         categories[button_text] = {
             "count": len(movies),
