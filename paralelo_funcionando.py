@@ -40,6 +40,7 @@ def procesar_link(data):
             EC.visibility_of_all_elements_located((By.CSS_SELECTOR, "div.custom-scroll > ul.reset-ul > li.itemContainer.vod-item-poster-atc"))
         )
         alt_attributes = [item.find_element(By.TAG_NAME, 'img').get_attribute('alt') if item.find_element(By.TAG_NAME, 'img') else "No image available" for item in items]
+        print(f"Total items found: {len(alt_attributes)}")
         print(alt_attributes)
     except Exception as e:
         print(f"Error processing {text}: {e}")
@@ -49,5 +50,5 @@ def procesar_link(data):
 with open('buttons.json', 'r') as file:
     links_json = json.load(file)
 
-with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
     executor.map(procesar_link, links_json)
