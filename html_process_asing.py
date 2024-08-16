@@ -13,7 +13,7 @@ async def fetch_and_save(url, headers, filename):
                 print(f"Error: {response.status}")
 
 async def main():
-    url = "https://pluto.tv/latam/on-demand/series/66105c7d5483810014dcb3a9/season/1"
+    url = "https://pluto.tv/latam/on-demand/619043246d03190008131b89/6245c1e23ca9b400078727bc?lang=en"
     headers = {
         "User-Agent": "python-requests/2.32.3"
     }
