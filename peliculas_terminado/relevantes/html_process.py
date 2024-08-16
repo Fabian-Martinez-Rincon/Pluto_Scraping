@@ -1,6 +1,6 @@
 import requests
 
-url = "https://pluto.tv/latam/on-demand/series/6346d286cba1290014d86384/details?lang=en"
+url = "https://pluto.tv/latam/on-demand/618da9791add6600071d68b0/6419c584dbdaaa000845cad0?lang=en"
 
 response = requests.get(url)
 

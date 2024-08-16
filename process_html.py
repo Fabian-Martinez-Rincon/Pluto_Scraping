@@ -6,7 +6,7 @@ with open("pluto_page.html", "r", encoding="utf-8") as file:
 soup = BeautifulSoup(html_content, 'html.parser')
 
 movies = []
-start_collecting = False  
+start_collecting = False
 
 ul_element = soup.find('ul')
 
@@ -15,7 +15,7 @@ for item in soup.find_all('li'):
     if link_tag:
         title = link_tag.get('title', link_tag.get_text(strip=True))
         
-        if title == "Invierno de Película":
+        if title == "Series para Maratonear":
             start_collecting = True
             continue
         
